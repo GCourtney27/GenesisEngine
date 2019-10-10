@@ -648,12 +648,6 @@ namespace DirectX
         void __cdecl SetConstantRoughness(float value);
 
         // Texture settings.
-        void __cdecl SetAlbedoTexture(_In_opt_ ID3D11ShaderResourceView* value);
-        void __cdecl SetNormalTexture(_In_opt_ ID3D11ShaderResourceView* value);
-        void __cdecl SetRMATexture(_In_opt_ ID3D11ShaderResourceView* value);
-
-        void __cdecl SetEmissiveTexture(_In_opt_ ID3D11ShaderResourceView* value);
-
         void __cdecl SetSurfaceTextures(
             _In_opt_ ID3D11ShaderResourceView* albedo,
             _In_opt_ ID3D11ShaderResourceView* normal,
@@ -663,6 +657,8 @@ namespace DirectX
             _In_opt_ ID3D11ShaderResourceView* radiance,
             int numRadianceMips,
             _In_opt_ ID3D11ShaderResourceView* irradiance);
+
+        void __cdecl SetEmissiveTexture(_In_opt_ ID3D11ShaderResourceView* emissive);
 
         // Normal compression settings.
         void __cdecl SetBiasedVertexNormals(bool value);

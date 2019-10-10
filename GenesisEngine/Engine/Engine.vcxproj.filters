@@ -13,19 +13,22 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\WindowsAPI">
+      <UniqueIdentifier>{86fc74c4-b5da-454e-9210-06ccc6055390}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsAPI\framework.h">
+      <Filter>Header Files\WindowsAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsAPI\Resource.h">
+      <Filter>Header Files\WindowsAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsAPI\targetver.h">
+      <Filter>Header Files\WindowsAPI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -34,16 +37,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Engine.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Engine.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="WindowsAPI\small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WindowsAPI\Engine.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
