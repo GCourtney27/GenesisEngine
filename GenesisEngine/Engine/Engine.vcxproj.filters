@@ -13,40 +13,45 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\WindowsAPI">
-      <UniqueIdentifier>{86fc74c4-b5da-454e-9210-06ccc6055390}</UniqueIdentifier>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{392f5b67-3261-4638-9ea5-0a95ea44c795}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h">
+    <ClInclude Include="Source\WindowContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowsAPI\framework.h">
-      <Filter>Header Files\WindowsAPI</Filter>
+    <ClInclude Include="Source\Engine.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowsAPI\Resource.h">
-      <Filter>Header Files\WindowsAPI</Filter>
+    <ClInclude Include="Source\Error.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowsAPI\targetver.h">
-      <Filter>Header Files\WindowsAPI</Filter>
+    <ClInclude Include="Source\RenderWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\AdapterReader.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Renderer.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine.cpp">
+    <ClCompile Include="Source\RenderWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Engine.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="WindowsAPI\small.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="WindowsAPI\Engine.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <ClCompile Include="Source\WindowContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\AdapterReader.cpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Renderer.cpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
