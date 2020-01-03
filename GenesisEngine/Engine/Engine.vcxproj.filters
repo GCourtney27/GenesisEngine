@@ -36,6 +36,15 @@
     <ClInclude Include="Source\Graphics\Renderer.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\COMException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StringHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineExport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\RenderWindow.cpp">
@@ -52,6 +61,12 @@
     </ClCompile>
     <ClCompile Include="Source\Graphics\Renderer.cpp">
       <Filter>Header Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StringHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Error.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
