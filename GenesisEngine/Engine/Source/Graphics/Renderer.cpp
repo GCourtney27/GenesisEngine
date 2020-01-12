@@ -1,21 +1,45 @@
 #include "Renderer.h"
 #include "..\Error.h"
 
-bool Renderer::Initialize(HWND hwnd, int windowWidth, int windowHeight)
+bool Renderer::Initialize(HWND hwnd, eGraphicsAPIs targetAPI, int windowWidth, int windowHeight)
 {
-	this->m_windowWidth = windowWidth;
-	this->m_windowHeight = windowHeight;
+	m_windowWidth = windowWidth;
+	m_windowHeight = windowHeight;
 
-	if (!IniitalizeDirect3D_11(hwnd))
+	switch (targetAPI)
+	{
+	case D3D_11:
+		m_pActiveAPI = new Direct3D_11();
+		m_pActiveAPI->Initialize(hwnd, m_windowWidth, m_windowHeight);
+		break;
+	case D3D_12:
+
+	default:
+		MessageBoxW(NULL, L"Failed to determine appropriet rendering API!", L"Fatal Error", MB_ICONEXCLAMATION);
 		return false;
-
-
+	}
 	return true;
 }
 
-bool Renderer::IniitalizeDirect3D_11(HWND hwnd)
+void Renderer::ClearRenderTargetView()
 {
-	try 
+	m_pActiveAPI->ClearRenderTargetView();
+}
+
+void Renderer::ClearDepthStencilView()
+{
+	m_pActiveAPI->ClearDepthStencilView();
+}
+
+void Renderer::PresentFrame()
+{
+	m_pActiveAPI->PresentFrame();
+}
+
+#pragma region Direct3D 11
+bool Direct3D_11::Initialize(HWND hwnd, int windowWidth, int windowHeight)
+{
+	try
 	{
 		// -- Obtain D3D11 compatible adapter -- //
 		std::vector<AdapterData> adapters = AdapterReader::GetGraphicsAdapters();
@@ -28,10 +52,10 @@ bool Renderer::IniitalizeDirect3D_11(HWND hwnd)
 		// -- Initialize Swap Chain -- //
 		DXGI_SWAP_CHAIN_DESC scd;
 		ZeroMemory(&scd, sizeof(DXGI_SWAP_CHAIN_DESC));
-		scd.BufferDesc.Width = m_windowWidth;
-		scd.BufferDesc.Height = m_windowHeight;
+		scd.BufferDesc.Width = windowWidth;
+		scd.BufferDesc.Height = windowHeight;
 		scd.BufferDesc.RefreshRate.Numerator = 60;
-		scd.BufferDesc.RefreshRate.Denominator= 1;
+		scd.BufferDesc.RefreshRate.Denominator = 1;
 		scd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		scd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 		scd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
@@ -74,7 +98,7 @@ bool Renderer::IniitalizeDirect3D_11(HWND hwnd)
 		}
 
 		// -- Create Depth Stencil View -- //
-		CD3D11_TEXTURE2D_DESC depthStencilDesc(DXGI_FORMAT_D24_UNORM_S8_UINT, m_windowWidth, m_windowHeight);
+		CD3D11_TEXTURE2D_DESC depthStencilDesc(DXGI_FORMAT_D24_UNORM_S8_UINT, windowWidth, windowHeight);
 		depthStencilDesc.MipLevels = 1;
 		depthStencilDesc.SampleDesc.Count = 4;
 		depthStencilDesc.SampleDesc.Quality = 0;
@@ -104,7 +128,7 @@ bool Renderer::IniitalizeDirect3D_11(HWND hwnd)
 		}
 
 		// -- Create and set viewport -- //
-		CD3D11_VIEWPORT viewport(0.0f, 0.0f, static_cast<float>(m_windowWidth), static_cast<float>(m_windowHeight));
+		CD3D11_VIEWPORT viewport(0.0f, 0.0f, static_cast<float>(windowWidth), static_cast<float>(windowHeight));
 		pDeviceContext->RSSetViewports(1, &viewport);
 
 		// -- Create RasterizerState -- //
@@ -169,11 +193,19 @@ bool Renderer::IniitalizeDirect3D_11(HWND hwnd)
 	return true;
 }
 
-void Renderer::RenderFrame()
+void Direct3D_11::ClearRenderTargetView()
 {
-	float clearColor[] = { 0.01f, 0.01f, 0.01f, 1.0f };
-	pDeviceContext->ClearRenderTargetView(pRenderTargetView.Get(), clearColor);
-	pDeviceContext->ClearDepthStencilView(pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	pDeviceContext->ClearRenderTargetView(pRenderTargetView.Get(), m_clearColor);
+}
 
+void Direct3D_11::ClearDepthStencilView()
+{
+	pDeviceContext->ClearDepthStencilView(pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+}
+
+void Direct3D_11::PresentFrame()
+{
 	pSwapChain->Present(0, NULL);
 }
+#pragma endregion 
+

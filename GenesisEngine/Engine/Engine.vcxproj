@@ -177,6 +177,7 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\Error.h" />
     <ClInclude Include="Source\Graphics\AdapterReader.h" />
+    <ClInclude Include="Source\Graphics\Graphics.h" />
     <ClInclude Include="Source\Graphics\Renderer.h" />
     <ClInclude Include="Source\RenderWindow.h" />
     <ClInclude Include="Source\StringHelper.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Error.cpp" />
     <ClCompile Include="Source\Graphics\AdapterReader.cpp" />
+    <ClCompile Include="Source\Graphics\Graphics.cpp" />
     <ClCompile Include="Source\Graphics\Renderer.cpp" />
     <ClCompile Include="Source\RenderWindow.cpp" />
     <ClCompile Include="Source\StringHelper.cpp" />

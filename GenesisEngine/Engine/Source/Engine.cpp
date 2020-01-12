@@ -1,27 +1,34 @@
 #include "Engine.h"
 
 // Systems
-#include "..\Source\Graphics\Renderer.h"
+#include "..\Source\Graphics\Graphics.h"
+
+#define DELETEPTR(ptr) delete ptr;\
+						ptr = 0;
 
 Engine::~Engine()
 {
-	//delete m_renderer;
+	//DELETEPTR(m_Graphics)
+	
 }
 
 bool Engine::Initialize(HINSTANCE hInstance, int cmdShow, std::string windowTitle, std::string windowClass, int windowWidth, int windowHeight)
 {
 	this->m_windowHeight = windowHeight;
 	this->m_windowWidth = windowWidth;
-	m_renderer = new Renderer();
+	m_Graphics = new Graphics();
 
 	if (!this->m_renderWindow.Initialize(this, hInstance, cmdShow, windowTitle, windowClass, windowWidth, windowHeight))
 	{
-		MessageBoxW(NULL, L"Failed to initialize renderer window. Exiting.", L"Error!", MB_OK);
+		MessageBoxW(NULL, L"Failed to initialize render window. Exiting.", L"Error!", MB_OK);
 		return false;
 	}
-	HWND e = m_renderWindow.GetHWND();
-	if (!m_renderer->Initialize(m_renderWindow.GetHWND(), m_windowWidth, m_windowHeight))
+
+	if (!m_Graphics->Initialize(m_renderWindow.GetHWND(), m_windowWidth, m_windowHeight))
+	{
+		MessageBoxW(NULL, L"Failed to initialize graphics render. Exiting.", L"Error!", MB_OK);
 		return false;
+	}
 
 	return true;
 }
@@ -33,7 +40,7 @@ void Engine::Update()
 
 void Engine::RenderFrame()
 {
-	m_renderer->RenderFrame();
+	m_Graphics->RenderFrame();
 }
 
 bool Engine::ProcessMessages()
@@ -46,11 +53,11 @@ void Engine::Shutdown()
 
 }
 
-bool Engine::InitRenderer(HWND hwnd)
+bool Engine::InitGraphics(HWND hwnd)
 {
-	if (!m_renderer->Initialize(hwnd, m_windowWidth, m_windowHeight))
+	if (!m_Graphics->Initialize(hwnd, m_windowWidth, m_windowHeight))
 	{
-		MessageBoxW(NULL, L"Failed to initialize renderer. Exiting.", L"Fatal Error!", MB_OK);
+		MessageBoxW(NULL, L"Failed to initialize Graphics. Exiting.", L"Fatal Error!", MB_OK);
 		return false;
 	}
 	return true;

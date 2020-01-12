@@ -55,26 +55,30 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,	_In_opt_ HINSTANCE hPrevInstance
 	if (!engine.Initialize(hInstance, nCmdShow, "Genesis Engine", "GE Window Class", 1600, 900))
 		return -1;
 
-	//if (!engine.InitRenderer(hwnd))
-	//	return 1;
-
-	// Main message loop:
-	while (GetMessage(&msg, nullptr, 0, 0))
+	while (engine.ProcessMessages())
 	{
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-
 		engine.Update();
 		engine.RenderFrame();
 	}
 	engine.Shutdown();
+
+	//// Main message loop:
+	//while (GetMessage(&msg, nullptr, 0, 0))
+	//{
+	//	if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+	//	{
+	//		TranslateMessage(&msg);
+	//		DispatchMessage(&msg);
+	//	}
+
+	//	engine.Update();
+	//	engine.RenderFrame();
+	//}
+	//engine.Shutdown();
 	
 
-	return (int)msg.wParam;
-	//return 0;
+	//return (int)msg.wParam;
+	return 0;
 }
 
 //

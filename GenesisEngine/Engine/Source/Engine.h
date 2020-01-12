@@ -4,7 +4,7 @@
 #include "WindowContainer.h"
 #include <string>
 
-class Renderer;
+class Graphics;
 
 class ENGINE_API Engine : WindowContainer
 {
@@ -19,10 +19,10 @@ public:
 	void Shutdown();
 
 	// DEBUG
-	bool InitRenderer(HWND hwnd);
+	bool InitGraphics(HWND hwnd);
 
 private:
-	Renderer* m_renderer = nullptr;
+	Graphics* m_Graphics = nullptr;
 
 	int m_windowWidth = 0;
 	int m_windowHeight = 0;

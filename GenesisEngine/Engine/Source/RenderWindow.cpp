@@ -16,12 +16,10 @@ bool RenderWindow::Initialize(WindowContainer * pWindowContainer, HINSTANCE hIns
 
 	// Create window instance
 	m_windowHandle = CreateWindowW(m_windowClass_Wide.c_str(), m_WindowTitle_Wide.c_str(), WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+									CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
 	if (!m_windowHandle)
-	{
 		return false;
-	}
 
 	m_hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ENGINE));
 
@@ -66,7 +64,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			DestroyWindow(hWnd);
 			break;
 		default:
-			return DefWindowProc(hWnd, message, wParam, lParam);
+			return DefWindowProcW(hWnd, message, wParam, lParam);
 		}
 	}
 	break;
@@ -105,7 +103,7 @@ LRESULT CALLBACK HandleMessageSetup(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
 		return pWindow->WindowProc(hwnd, uMsg, wParam, lParam);
 	}
 	default:
-		return DefWindowProc(hwnd, uMsg, wParam, lParam);
+		return DefWindowProcW(hwnd, uMsg, wParam, lParam);
 	}
 }
 
@@ -115,7 +113,7 @@ bool RenderWindow::ProcessMessages()
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG)); // Initialize the message structure
 
-	while (GetMessage(&msg, nullptr, 0, 0))
+	while (PeekMessage(&msg, this->m_windowHandle, 0, 0, PM_REMOVE))
 	{
 		if (!TranslateAccelerator(msg.hwnd, m_hAccelTable, &msg))
 		{
